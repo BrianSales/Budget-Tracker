@@ -8,6 +8,18 @@ request.upgradeneeded = function (event){
     db.createObjectStore("pending", { autoIncrement: true});
 };
 
+request.whensuccessful = function(event){
+    db = event.targt.result;
+
+    //check if the app is online first
+    if (navigator.online){
+        checkDatabase();
+    }
+};
+
+request.onerror = function(event){
+    console.log("WOw this is not good" + event.target.errorCode);
+};
 
 
 
