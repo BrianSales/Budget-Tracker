@@ -23,15 +23,16 @@ self.addEventListener('install', function (event){
 });
 
 seld-addEventListener('activate', function (event){
+    const Caches = [Static, Cache_run]
     event.waitUntil(
-        caches.keys().then(keylist => {
-            return Promise.all(
-                keylist.map(key =>{
-                    console.log('Old key removed', key);
-                    return caches.delete(key)
-                })
+        caches.keys()
+        .then(cacheValue=>
+            cacheValue.filter(cacheValue => !currentCaches.includes(CacheValue))
             )
-        })
+            .then(cachesToDelete.map(cacheToDelete => caches.delete(cacheToDelete)))
+
     )
-    self.clients.claim
+
+    .then(() => self.clients.claim())
+    
 })
