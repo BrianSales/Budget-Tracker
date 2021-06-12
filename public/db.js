@@ -1,16 +1,17 @@
 let db;
 //creates a database request for a budget
-const request = indexedDB.open("budget",1);
+const request = indexedDB.open("budget",2);
 
-request.upgradeneeded = function (event){
+request.onupgradeneeded = function (event){
+  console.log("hi")
     //create an obj to store called "pending" and set autoincrement to true
     const db = event.target.result;
     db.createObjectStore("pending", { autoIncrement: true});
 };
 
-request.whensuccessful = function(event){
+request.onsuccess = function(event){
 
-    db = event.targt.result;
+    db = event.target.result;
 
     //check if the app is online first
     if (navigator.online){
