@@ -11,7 +11,7 @@ const FILES_TO_CACHE = [
 // Install Service Worker
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
+    caches.open(DATA_CACHE_NAME).then((cache) => {
       console.log("Pre-cached successfully!");
       return cache.addAll(FILES_TO_CACHE);
     })
@@ -24,7 +24,7 @@ self.addEventListener("activate", (event) => {
     caches.keys().then((keyList) => {
       return Promise.all(
         keyList.map((key) => {
-          if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {
+          if (kkey !== DATA_CACHE_NAME) {
             console.log("Old cache data removed", key);
             return caches.delete(key);
           }
@@ -58,7 +58,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   event.respondWith(
-    caches.open(CACHE_NAME).then((cache) => {
+    caches.open(DATA_CACHE_NAME).then((cache) => {
       return cache.match(event.request).then((response) => {
         return response || fetch(event.request);
       });

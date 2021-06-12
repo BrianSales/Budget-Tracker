@@ -1,6 +1,6 @@
 let db;
 //creates a database request for a budget
-const request = indexDB.open("budget",1);
+const request = indexedDB.open("budget",1);
 
 request.upgradeneeded = function (event){
     //create an obj to store called "pending" and set autoincrement to true
@@ -33,7 +33,7 @@ function saveRecord(record) {
 };
 
 
-function checkdata(){
+function checkDatabase(){
 
     const transaction = db.transaction(["pending"], "readwrite")
 
